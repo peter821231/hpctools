@@ -1,3 +1,29 @@
+# cpn_resume_check.sh README
+
+## Description
+ Check compute node before resuming from slurm.
+ This script checks the compute node before resuming from slurm. It requires the installation of pdsh and the configuration of passwordless ssh. 
+ The script should be executed on the deploy node (imn05). The `sinfo` command needs to be executed on the slurm controller.
+
+## Preseqquisites
+- slurm and pdsh
+- Bash shell
+
+## Usage
+1. Make the script executable:
+    ```bash
+    chmod +x cpn_resume_check.sh
+    ```
+2. Edit slurm controller node
+3. Run the script:
+    ``` bash
+    # Get information
+    ./cpn_resume_check.sh -h
+    # Get Drained node information
+    ./cpn_resume_check.sh -s
+    # Check node status
+    ./cpn_resume_check.sh -i <target_inventory>
+    ```
 # ibcheck.sh README
 
 ## Description
@@ -55,8 +81,6 @@ ibcheck.sh is a script that performs various checks on InfiniBand (IB) network c
     IBSP08 OK
     ```
 
-## Features
-- Check IB link and port status
 
-## Contributing
+# Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
