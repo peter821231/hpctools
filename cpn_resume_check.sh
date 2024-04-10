@@ -47,7 +47,7 @@ echo "=====Check IB switch status (State/Rate)====="
 pdsh -w ${inventory} "ibstat | grep 'State\|Rate' | awk '{print \$2,\$4}'"
 # Check GPFS directory status
 echo "=====Check GPFS directory status====="
-pdsh -w ${inventory} "df -h | grep 'home1\|home2\|project\|work1\|work2\|mgmt\|pkg'"
+pdsh -w ${inventory} "df -h | grep 'home1\|home2\|project\|work1\|work2\|mgmt\|pkg' && echo ''"
 # Check slurmd and ldap status
 echo "=====Check slurmd status====="
 pdsh -w ${inventory} "systemctl status slurmd | grep 'Active:'"
