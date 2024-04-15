@@ -21,6 +21,8 @@
     ./cpn_resume_check.sh -h
     # Get Drained node information
     ./cpn_resume_check.sh -s
+    # Check ECC memory error count
+    ./cpn_resume_check.sh -r <target_inventory>
     # Check node status
     ./cpn_resume_check.sh -i <target_inventory>
     ```
