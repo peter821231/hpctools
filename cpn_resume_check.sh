@@ -12,6 +12,7 @@ function help_func()
   echo "Usage: $(basename $0) -s, Check drained node"
   echo "Usage: $(basename $0) -i <inventory>, Check compute node status"
   echo "Usage: $(basename $0) -q <inventory>, Check compute node queue status"
+  echo "Usage: $(basename $0) -m <inventory>, Check compute node IB recently status"
   echo "Usage: $(basename $0) -r <inventory>, Check ECC Memory error msg"
   echo "Available iventory:"
   echo "icpnq[1-7][1-56],icpnp[1-2][1-56],icpnp3[1-48],gpn[1-6],ncpn[1-40]"
@@ -41,7 +42,7 @@ function online_check()
   pdsh -w ${inventory} "lscpu | grep -m 1 'CPU(s):' | awk '{print \$2}'"
 }
 
-OPTSTRING="i:q:sr:h"
+OPTSTRING="i:q:m:sr:h"
 while getopts ${OPTSTRING} opt; do
     case "$opt" in
         i)
@@ -55,6 +56,12 @@ while getopts ${OPTSTRING} opt; do
         inventory="$OPTARG"
         pdsh -w ${slurm_controller} "squeue -w ${inventory}"
         exit        
+        ;;
+        m)
+        arg="$OPTARG"
+        inventory="$OPTARG" 
+        pdsh -w ${inventory} "mmhealth node show"
+        exit
         ;;
         s)
         echo "Check Drained node"
