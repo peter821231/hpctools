@@ -37,6 +37,7 @@ switch_names=(`ibswitches | sort -k 6 | awk '{print $6}' | tr -d '"'`)
 switch_guids=(`ibswitches | sort -k 6 | awk '{print $3}'`)
 echo "Check switch and port status by iblinkinfo"
 echo "Format: physical port(virtual port)"
+echo `date`
 
 # Check All swithces online
 switch_total_online=`ibswitches | wc -l`
