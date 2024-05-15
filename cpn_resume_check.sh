@@ -15,7 +15,7 @@ function help_func()
   echo "Usage: $(basename $0) -m <inventory>, Check compute node IB recently status"
   echo "Usage: $(basename $0) -r <inventory>, Check ECC Memory error msg"
   echo "Available iventory:"
-  echo "icpnq[1-7][1-56],icpnp[1-2][1-56],icpnp3[1-48],gpn[1-6],ncpn[1-40]"
+  echo "icpnq[1-7][01-56],icpnp[1-2][01-56],icpnp3[01-48],gpn[01-06],ncpn[01-40]"
   echo "Ex: $(basename $0) -i icpnq101"
   echo "Ex: $(basename $0) -i icpnp101,icpnq234"
 
