@@ -26,7 +26,7 @@ function online_check()
 {
   # Check IB switch status
   echo "=====Check IB switch status (State/Rate)====="
-  pdsh -w ${inventory} "ibstat | grep 'State\|Rate' | awk '{print \$2,\$4}'"
+  pdsh -w ${inventory} "ibstat | grep 'Link layer\|Physical\|State\|Rate' | awk '{print \$1,\$2,\$3}'"
   # Check GPFS directory status
   echo "=====Check GPFS directory status====="
   pdsh -w ${inventory} "df -h | grep 'home1\|home2\|project\|work1\|work2\|mgmt\|pkg' && echo ''"
@@ -37,9 +37,9 @@ function online_check()
   pdsh -w ${inventory} "systemctl status sssd | grep 'Active:'"
   # Check CPU and memory status
   echo "=====Check RAM status====="
-  pdsh -w ${inventory} "free -g | grep Mem | awk '{print \$2}'"
+  pdsh -w ${inventory} "free -g | grep Mem | awk '{print \$1,\$2}'"
   echo "=====Check CPU status====="
-  pdsh -w ${inventory} "lscpu | grep -m 1 'CPU(s):' | awk '{print \$2}'"
+  pdsh -w ${inventory} "lscpu | grep -m 1 'CPU(s):' | awk '{print \$1,\$2}'"
 }
 
 OPTSTRING="i:q:m:sr:h"
