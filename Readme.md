@@ -82,7 +82,34 @@ ibcheck.sh is a script that performs various checks on InfiniBand (IB) network c
     IBSP07 OK
     IBSP08 OK
     ```
+# ping_check.sh README
+## Description
+ping_check.sh is a script that periodically checks the status of a list of hostnames by pinging them using their internal IP addresses. It sends an email notification if the ping status changes from success to failure or vice versa. The script first attempts to send the email via the main mail server and, if that fails, it tries the backup mail server. It utilizes a status file to keep track of the last ping status for each hostname.
 
+## Prerequisites
+- Bash shell
 
+## Usage
+
+1. Make the script executable:
+    ```bash
+    chmod +x ping_check.sh
+    ```
+2. Edit the list of settings to ping:
+    ```bash
+    ADMINS="ADMIN_EMAIL_ADDRESS"
+    MailServer="MAILSERVER"
+    BackupMailServer="MAILSERVER_BACKUP"
+    SENDER="PING_CHECK"
+    hostnames=(TARGET_HOSTNAME1 TARGET_HOSTNAME2 TARGET_HOSTNAME3)
+    ```
+3. Run the script:
+    ```bash
+    ./ping_check.sh
+    ```
+4. Get the result and a file:
+    ```bash
+    Ping TARGET_HOSTNAME1 TARGET_IP Success
+    ```
 # Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
