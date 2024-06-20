@@ -5,7 +5,7 @@
  This script checks the compute node before resuming from slurm. It requires the installation of pdsh and the configuration of passwordless ssh. 
  The script should be executed on the deploy node (imn05). The `sinfo` command needs to be executed on the slurm controller.
 
-## Preseqquisites
+## Presequisites
 - slurm and pdsh
 - Bash shell
 
