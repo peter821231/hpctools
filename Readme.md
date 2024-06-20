@@ -105,7 +105,10 @@ ping_check.sh is a script that periodically checks the status of a list of hostn
     ```
 3. Run the script:
     ```bash
+    # Quiet mode for crontab
     ./ping_check.sh
+    # Verbose mode
+    ./ping_check.sh -v
     ```
 4. Get the result and a file:
     ```bash
