@@ -40,6 +40,10 @@ function online_check()
   pdsh -w ${inventory} "free -g | grep Mem | awk '{print \$1,\$2}'"
   echo "=====Check CPU status====="
   pdsh -w ${inventory} "lscpu | grep -m 1 'CPU(s):' | awk '{print \$1,\$2}'"
+  offline_cpu=`pdsh -w ${inventory} "lscpu | grep Off-line"`
+  if [ -n "${offline_cpu}" ]; then
+    echo "Warning: ${offline_cpu}"
+  fi
 }
 
 OPTSTRING="i:q:m:sr:h"
