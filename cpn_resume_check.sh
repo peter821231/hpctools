@@ -58,7 +58,7 @@ while getopts ${OPTSTRING} opt; do
         q)
         arg="$OPTARG"
         inventory="$OPTARG"
-        pdsh -w ${slurm_controller} "squeue -w ${inventory}"
+        ssh ${slurm_controller} "squeue -w ${inventory}"
         exit        
         ;;
         m)
@@ -69,7 +69,7 @@ while getopts ${OPTSTRING} opt; do
         ;;
         s)
         echo "Check Drained node"
-        pdsh -w ${slurm_controller} "sinfo -R"
+        ssh ${slurm_controller} "sinfo -R"
         exit
         ;;
         r)
