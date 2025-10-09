@@ -1,31 +1,37 @@
 # cpn_resume_check.sh README
-
 ## Description
- Check compute node before resuming from slurm.
- This script checks the compute node before resuming from slurm. It requires the installation of pdsh and the configuration of passwordless ssh. 
- The script should be executed on the deploy node (imn05). The `sinfo` command needs to be executed on the slurm controller.
+This script is a command-line utility for Slurm administrators to perform various health and status checks on compute nodes. It's designed to help diagnose nodes before resuming them from a `drained` state, ensuring they are ready to accept jobs. The script uses `pdsh` to execute commands in parallel across multiple nodes.
 
-## Presequisites
-- slurm and pdsh
-- Bash shell
+## Prerequisites
+Before using this script, please ensure the following requirements are met:
+- **`pdsh` is installed**: The script relies on `pdsh` for parallel command execution.
+- **Passwordless SSH**: You must have passwordless SSH access configured from the deployment node to all compute nodes for the user running the script.
+- **Privileged Access**: The script should be run as a privileged user (e.g., `root`) with permissions to check system services and hardware status.
+- **Deployment Node**: It is intended to be executed from a central management or deployment node (e.g., `imn05` as mentioned in the script's comments).
 
+## Configuration
+You need to configure one variable at the top of the script to match your environment:
+- **`slurm_controller`**: Set this to the hostname of your main Slurm controller (`slurmctld`) node.
+  ```bash
+  slurm_controller="isn09" # Change isn09 to your Slurm controller's hostname
+  ```
 ## Usage
-1. Make the script executable:
-    ```bash
-    chmod +x cpn_resume_check.sh
-    ```
-2. Edit slurm controller node
-3. Run the script:
-    ``` bash
-    # Get information
-    ./cpn_resume_check.sh -h
-    # Get Drained node information
-    ./cpn_resume_check.sh -s
-    # Check ECC memory error count
-    ./cpn_resume_check.sh -r <target_inventory>
-    # Check node status
-    ./cpn_resume_check.sh -i <target_inventory>
-    ```
+The script is controlled via command-line options.
+```bash
+./your_script_name.sh [option] <inventory> [arguments...]
+```
+Option	Description
+```
+-i <inventory>	Online Check: Performs a comprehensive status check on the specified nodes. This includes IB status, GPFS mounts, slurmd and sssd service status, and CPU/Memory resources.
+-q <inventory> [start] [end]	Queue Check: Checks the Slurm job history. It has three modes:
+    1. Current Jobs: Shows currently running jobs.
+    2. 10-Min History: Shows jobs in the 10 minutes prior to a given timestamp.
+    3. Time Range History: Shows jobs within a specified start and end timestamp.
+-m <inventory>	GPFS Health Check: Displays the GPFS mmhealth status for the specified nodes.
+-r <inventory>	ECC Error Check: Scans the IPMI system event log (sel) for "Correctable ECC" memory errors and provides a summarized count per node.
+-s	Drained Node Check: Lists all nodes that are currently in a drained or draining state. This command does not require an <inventory>.
+-h	Help: Displays the help message with usage instructions and examples.
+```
 # ibcheck.sh README
 
 ## Description
